@@ -1,8 +1,10 @@
 import time
 
+import pytest
+
 from Utilities.readProperties import ReadConfig
 from Utilities.customLogger import LogGen
-from pageObjects.LoginPage import Login
+from pageObjects.LoginPage import LoginPage
 from Utilities import ExcelUtils
 
 
@@ -11,6 +13,7 @@ class Test_002_DDT_Login:
     path = ".//TestData/Test_Login.xlsx"
     logger = LogGen.loggen()
 
+    @pytest.mark.regression
     def test_login(self, setup):
         self.logger.info("***************Test_002_DDT_Login*****************")
         self.logger.info("***************Verifying Login Test***************")
@@ -18,7 +21,7 @@ class Test_002_DDT_Login:
         self.driver.get(self.baseURL)
         self.driver.maximize_window()
 
-        self.lp = Login(self.driver)
+        self.lp = LoginPage(self.driver)
 
         self.rows = ExcelUtils.getRowCount(self.path, 'Sheet1')
         print("Number of Rows in a Excel", self.rows)
